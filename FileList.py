@@ -6,8 +6,8 @@ from PIL import ExifTags
 import datetime
 import os
 
-startPath = "/home/brent/messy"
-endPath = "/home/brent/cleanup"
+startPath = "~/SingleFileTest/messy"
+endPath = "~/SingleFileTest/cleanup"
 
 
 def photo_name(file):
