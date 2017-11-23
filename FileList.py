@@ -6,8 +6,8 @@ from PIL import ExifTags
 import datetime
 import os
 
-startPath = "/home/pi/SingleFileTest/messy"
-endPath = "/home/pi/SingleFileTest/cleanup"
+messyDirectory = "/home/brent/SingleFileTest/messy"
+cleanDirectory = "/home/brent/SingleFileTest/cleanup"
 
 
 def photo_name(file):
@@ -28,7 +28,7 @@ def photo_name(file):
 
 
 f = []
-for (dirpath, dirnames, filenames) in os.walk(startPath):
+for (dirpath, dirnames, filenames) in os.walk(messyDirectory):
     f.extend(filenames)
     break
 
@@ -39,4 +39,6 @@ print("Name of the file: ", fo.name)
 print("Closed or not: ", fo.closed)
 print("Opening mode: ", fo.mode)
 fo.close()
+
+# if file is image, read the exif data from it
 photo_name(fn)
