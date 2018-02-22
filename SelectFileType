@@ -1,0 +1,65 @@
+import os
+import shutil
+import re
+from datetime import date
+
+starting_location = "/home/brent/Documents"
+ending_location = "/home/brent/JunkHere"
+
+# Set Up Directories
+if os.path.exists(starting_location):
+    print('Excellent, your starting location exists.')
+
+if os.path.exists(ending_location):
+    print("Excellent, your ending location exists.")
+else:
+    print("Generating your ending location")
+    os.mkdir(ending_location)
+
+
+def process_dir(directory):
+    """Process and recurse through a given directory"""
+    # print("your dir sir: ", directory)
+    my_scan_dir = os.scandir(directory)
+
+    for entry in my_scan_dir:
+        if entry.is_dir():
+            process_dir(entry.path)
+        else:
+            process_file(entry)
+
+
+def process_file(file):
+    """Process 'file' which is a type posix.DirEntry"""
+
+    # Separate file from path
+    file_path_and_name = os.path.split(file.name)
+
+    # Separate name and extension from file name
+    name, ext = os.path.splitext(file_path_and_name[1])
+
+    # Eliminate '.' from front of extension
+    clean_ext = re.sub('[.]', '', ext)
+
+    # Extract created year from file
+    mod_time = os.path.getmtime(file.path)
+    year = date.fromtimestamp(mod_time).year
+    print(file.name, ": ", year)
+
+    new_end_path = os.path.join(ending_location, clean_ext, str(year))
+    print("New Path:", new_end_path)
+
+    # make dirs
+    os.makedirs(new_end_path, exist_ok=True)
+
+    # Copy files to new location
+    shutil.copy(file.path, new_end_path)
+
+
+process_dir(starting_location)
+
+# myListDir = os.listdir(startingLocation)
+# myScanDir = os.scandir(startingLocation)
+#
+# print('My list dir:', myListDir)
+# print("My Scan Dir:", myScanDir)
