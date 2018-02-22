@@ -1,0 +1,17 @@
+import os
+import stat
+
+filename = "/home/brent/Desktop/address.txt"
+stat = os.stat(filename)
+
+print('stat:', stat)
+
+readPerm = os.access(filename, os.R_OK)
+writePerm = os.access(filename, os.W_OK)
+execPerm = os.access(filename, os.X_OK)
+
+print('readPerm: ', readPerm)
+
+print('writePerm: ', writePerm)
+
+print('execPerm: ', execPerm)
