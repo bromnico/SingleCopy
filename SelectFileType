@@ -4,6 +4,7 @@ import re
 from datetime import date
 
 starting_location = "/home/brent/Documents"
+# starting_location = "/home/brent/Pictures/2001"
 ending_location = "/home/brent/JunkHere"
 
 # Set Up Directories
@@ -44,15 +45,22 @@ def process_file(file):
     # Extract created year from file
     mod_time = os.path.getmtime(file.path)
     year = date.fromtimestamp(mod_time).year
+    month = date.fromtimestamp(mod_time).month
     print(file.name, ": ", year)
 
-    new_end_path = os.path.join(ending_location, clean_ext, str(year))
+    new_end_path = os.path.join(ending_location, clean_ext.upper(), str(year), str(month))
     print("New Path:", new_end_path)
 
     # make dirs
     os.makedirs(new_end_path, exist_ok=True)
 
     # Copy files to new location
+    # print("Now checking for existence: ", new_end_path)
+    # if os.path.exists(new_end_path):
+    #    print("The file already exists: ", new_end_path)
+    # else:
+    # 'new_end_path' is not the file.  It is only the path to the location.
+    # Need path and file name for condition to work properly.
     shutil.copy(file.path, new_end_path)
 
 
