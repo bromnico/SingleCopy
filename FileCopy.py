@@ -1,13 +1,18 @@
 import os, json
 from shutil import disk_usage, copy
 
-mypath = "/home/brent/Desktop"
+
+def move_photo(file):
+    # get date details about photo
+    
+
+mypath = "/home/pi/Desktop"
 stuffStats = disk_usage(mypath)
 
 print(stuffStats)
 
-fileSrc = "/home/brent/Desktop/SingleFileTest/messy/test.txt"
-dirDest = "/home/brent/Desktop/SingleFileTest/cleanup"
+fileSrc = "/home/pi/Desktop/SingleFileTest/messy/test.txt"
+dirDest = "/home/pi/Desktop/SingleFileTest/cleanup"
 
 path = os.path.split(fileSrc)
 name, ext = os.path.splitext(path[1])
